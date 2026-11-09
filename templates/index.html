@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Publication & Citation Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">DBMS PROJECT</p>
+      <h1>Research Publication &amp;<br>Citation Management System</h1>
+      <p class="subtitle">Organize research papers, authors, and citation relationships in one place.</p>
+      <span id="connectionStatus" class="status">Checking database connection…</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="stats-grid" aria-label="Project statistics">
+      <article class="stat-card"><span>Total papers</span><strong id="totalPapers">—</strong></article>
+      <article class="stat-card"><span>Total authors</span><strong id="totalAuthors">—</strong></article>
+      <article class="stat-card"><span>Citation records</span><strong id="totalCitations">—</strong></article>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div><p class="eyebrow">LIBRARY</p><h2>Research papers</h2></div>
+        <input id="searchInput" type="search" placeholder="Search title, author, journal…" aria-label="Search papers">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Title</th><th>Author(s)</th><th>Year</th><th>Journal</th><th>Citations</th></tr></thead>
+          <tbody id="papersTable"><tr><td colspan="5">Loading papers…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="hint">Citation counts reflect only citation relationships entered into this project database.</p>
+    </section>
+
+    <div class="two-column">
+      <section class="panel">
+        <p class="eyebrow">NEW RECORD</p><h2>Add a research paper</h2>
+        <form id="paperForm">
+          <label>Paper title *<input name="title" required maxlength="255" placeholder="e.g. Machine Learning in Healthcare"></label>
+          <label>Author name *<input name="author_name" required maxlength="100" placeholder="Researcher's full name"></label>
+          <label>Author email<input name="author_email" type="email" maxlength="150" placeholder="name@example.com"></label>
+          <label>Affiliation<input name="affiliation" maxlength="200" placeholder="University or organization"></label>
+          <div class="form-row">
+            <label>Publication year *<input name="publication_year" required type="number" min="1000" max="9999" value="2026"></label>
+            <label>Journal / conference<input name="journal_name" maxlength="200" placeholder="Publication venue"></label>
+          </div>
+          <label>DOI (optional)<input name="doi" maxlength="255" placeholder="e.g. 10.xxxx/example"></label>
+          <label>Abstract<textarea name="abstract" rows="3" placeholder="Brief summary of the paper"></textarea></label>
+          <button type="submit">Save paper</button>
+          <p id="paperMessage" class="form-message" role="status"></p>
+        </form>
+      </section>
+
+      <section class="panel">
+        <p class="eyebrow">REFERENCE NETWORK</p><h2>Record a citation</h2>
+        <p class="hint">Choose the paper that cites another paper, then choose the paper being cited.</p>
+        <form id="citationForm">
+          <label>Citing paper *<select name="citing_paper_id" id="citingPaper" required><option value="">Load papers first</option></select></label>
+          <label>Cited paper *<select name="cited_paper_id" id="citedPaper" required><option value="">Load papers first</option></select></label>
+          <button type="submit">Save citation</button>
+          <p id="citationMessage" class="form-message" role="status"></p>
+        </form>
+        <hr>
+        <p class="eyebrow">MOST CITED</p><h3>Top papers in this database</h3>
+        <ol id="topPapers" class="top-list"><li>Loading…</li></ol>
+      </section>
+    </div>
+
+    <section class="panel">
+      <div class="section-heading"><div><p class="eyebrow">PEOPLE</p><h2>Authors</h2></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Affiliation</th><th>Publications</th></tr></thead>
+          <tbody id="authorsTable"><tr><td colspan="4">Loading authors…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>Research Publication &amp; Citation Management System · DBMS learning project</footer>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
